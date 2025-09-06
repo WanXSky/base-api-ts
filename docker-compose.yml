@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  api:
+    build: .
+    container_name: api
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgres://devuser:devpass@db:5432/myapi
+      JWT_SECRETKEY: WannXSkyy
+    depends_on:
+      - db
+    volumes:
+      - ./src:/app/src
+    command: npx nodemon src/index.ts
+
+  db:
+    image: postgres:15-alpine
+    container_name: db
+    environment:
+      POSTGRES_USER: devuser
+      POSTGRES_PASSWORD: devpass
+      POSTGRES_DB: myapi
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
