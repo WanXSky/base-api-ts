@@ -33,9 +33,9 @@ const router = Router();
  *                 example: password123
  *     responses:
  *       201:
- *         description: User registered successfully
+ *         description: Success
  *       400:
- *         description: Invalid input
+ *         description: Bad Request
  */
 router.post('/register', register);
 
@@ -66,14 +66,6 @@ router.post('/register', register);
  *     responses:
  *       200:
  *         description: Login successful
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 token:
- *                   type: string
- *                   example: eyJhbGciOiJIUzI1NiIs...
  *       401:
  *         description: Invalid credentials
  */

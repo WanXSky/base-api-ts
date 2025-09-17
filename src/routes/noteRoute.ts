@@ -38,11 +38,11 @@ const router = Router();
  *                example: true
  *    responses:
  *      201:
- *        description: Note created successfully
+ *        description: Success
  *      400:
- *        description: invalid input
+ *        description: Bad Request
  *      401:
- *        description: Invalid token or Token expaired
+ *        description: Unauthorized
  */
 router.post('/create', authenticate, validate(createSchema), createNote);
 
@@ -66,12 +66,11 @@ router.post('/create', authenticate, validate(createSchema), createNote);
  *        description: Username unik dari pengguna
  *    responses:
  *      200:
- *        description: Semua catatan public diambil
+ *        description: Success
  *      401:
- *        description: Unauthorized token tidak valid atau kadaluarsa
+ *        description: Unauthorized
  *      404:
- *        description: Username tidak ditemukan
- * 
+ *        description: Note Found
  */
 router.get('/:username', optionalAuth, readAllNote);
 
@@ -102,12 +101,86 @@ router.get('/:username', optionalAuth, readAllNote);
  *        description: Slug unik dari note
  *    responses:
  *      200:
- *        description: Berhasil Mendapatkan notes
+ *        description: Success
  *      404:
- *        description: Note tidak ditemukan
+ *        description: Not Found
  */
 router.get('/:username/:slug', optionalAuth, readNote);
+
+/**
+ * @swagger
+ * /api/notes/{slug}:
+ *  put:
+ *    tags:
+ *      - Notes
+ *    security:
+ *      - bearerAuth: []
+ *    summary: Update notes by slug
+ *    description: mengubah notes berdasarkan slug dari usern
+ *    parameters:
+ *      - in: path
+ *        name: slug
+ *        schema: 
+ *          type: string
+ *          example: hello-world
+ *        required: true
+ *        description: slug unik per masing-masing pengguna
+ *    requestBody:
+ *      required: true
+ *      content: 
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            required: 
+ *              - title
+ *              - content
+ *              - isPublic
+ *            properties:
+ *              title:
+ *                type: string
+ *                example: Hello World
+ *              content:
+ *                type: string
+ *                example: Hello from Type Script
+ *              isPublic:
+ *                type: boolean
+ *                example: true
+ *    responses:
+ *      200:
+ *        description: Success
+ *      401:
+ *        description: Unauthorized
+ *      404: 
+ *        description: Not Found
+ */
 router.put('/:slug', authenticate, validate(updateSchema), updateNote);
+
+/**
+ * @swagger
+ * /api/notes/{slug}:
+ *  delete:
+ *    tags:
+ *      - Notes
+ *    security:
+ *      - bearerAuth: []
+ *    summary: Delete Note by slug
+ *    description: Delete Note by slug ( Login Required )
+ *    parameters:
+ *      - in: path
+ *        name: slug
+ *        schema:
+ *          type: string
+ *          example: hello-world
+ *        required: true
+ *        description: slug unik per masing-masing pengguna
+ *    responses:
+ *      200:
+ *        description: Note berhasil dihapus
+ *      401:
+ *        description: Unauthorized
+ *      404:
+ *        description: Not found
+ */
 router.delete('/:slug', authenticate, deleteNote);
 
 export default router;
