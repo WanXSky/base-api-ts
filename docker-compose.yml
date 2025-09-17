@@ -6,8 +6,8 @@ services:
     ports:
       - "3000:3000"
     environment:
-      DATABASE_URL: postgres://devuser:devpass@db:5432/myapi
-      JWT_SECRETKEY: WannXSkyy
+      DATABASE_URL: ${DATABASE_URL}
+      JWT_SECRETKEY: ${JWT_SECRETKEY}
     depends_on:
       - db
     volumes:
