@@ -12,7 +12,7 @@ export const authenticate = (req: Request, res: Response, next: NextFunction) =>
     if(!token) return error(res, 'Unauthorized', 'Akses token diperlukan.', 401);
 
     try {
-        const decode = jwt.verify(token, process.env.JWT_SECRET!) as JwtPayload
+        const decode = jwt.verify(token, process.env.JWT_SECRETKEY!) as JwtPayload
         (req as any).userId = decode.userId;
         next();
     } catch(err: any) {
@@ -25,7 +25,7 @@ export const optionalAuth = (req: Request, res: Response, next: NextFunction) =>
 
         if(token) {
             try {
-                const decode = jwt.verify(token, process.env.JWT_SECRET!) as JwtPayload
+                const decode = jwt.verify(token, process.env.JWT_SECRETKEY!) as JwtPayload
                 (req as any).userId = decode.userId;
             } catch(err: any) {
                 return error(res, 'Unauthorized', 'Akses token tidak valid.', 401);

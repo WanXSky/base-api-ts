@@ -1,6 +1,7 @@
 import express from 'express';
 import router from './routes';
 import { PrismaClient } from '@prisma/client';
+import { swaggerSpec, swaggerUi } from './swagger';
 
 const app = express();
 const PORT = 3000;
@@ -20,6 +21,8 @@ app.get('/health', async (req, res) => {
 });
 
 app.use('/api', router);
+
+app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.listen(PORT, () => {
     console.log(`API Berjalan di http://localhost:${PORT}`);
