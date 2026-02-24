@@ -10,6 +10,7 @@ env:
   
 jobs:
   build-and-push:
+    name: Build and Push to GHCR
     runs-on: ubuntu-latest
     environment: ci
     
@@ -30,3 +31,23 @@ jobs:
         context: .
         push: true
         tags: ${{ env.IMAGE_NAME }}
+  
+  deploy:
+    name: Deploy to K3s
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    environment: ci
+    
+    steps:
+    - name:
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USERNAME }}
+        key: ${{ secrets.VPS_KEY }}
+        port: ${{ secrets.VPS_PORT }}
+        script: |
+          echo "Memulai proses Rolling update di k3s"
+          kubectl rollout restart deployment api-deploy
+          kubectl rollout status deployment api-deploy
+          echo "Deploy Sukses coy"
