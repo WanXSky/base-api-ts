@@ -48,6 +48,6 @@ jobs:
         port: ${{ secrets.VPS_PORT }}
         script: |
           echo "Memulai proses Rolling update di k3s"
-          sudo kubectl rollout restart deployment api-deploy
-          sudo kubectl rollout status deployment api-deploy
+          kubectl rollout restart deployment api-deploy
+          kubectl rollout status deployment api-deploy
           echo "Deploy Sukses coy"
