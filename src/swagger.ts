@@ -17,7 +17,10 @@ const options = {
             },
         },
     },
-    apis: [path.join(process.cwd(), 'src', 'routes', '*.ts')],
+    apis: [
+        path.join(process.cwd(), 'src', 'routes', '*.ts'),
+        path.join(process.cwd(), 'dist', 'routes', '*.js')
+    ],
 };
 
 export const swaggerSpec = swaggerJSDoc(options);
