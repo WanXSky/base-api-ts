@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: api
-          image: ghcr.io/wanxsky/base-api-ts:latest
+          image: ghcr.io/wanxsky/base-api:latest
           ports:
             - containerPort: 3000
           env:
