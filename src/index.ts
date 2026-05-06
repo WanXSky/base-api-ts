@@ -14,7 +14,7 @@ app.get('/health', async (req, res) => {
         await prisma.$connect();
         res.json({ status: 'OK', db: 'Connected' });
     } catch(err) {
-        res.status(500).json({ status: 'Error', db: 'disconnect' });
+        res.status(500).json({ status: 'Error', db: 'disconnectt' });
     } finally {
         await prisma.$disconnect();
     }
