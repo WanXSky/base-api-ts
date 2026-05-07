@@ -2,8 +2,14 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress 
 metadata:
   name: api-ingress 
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+        - api.kzt.biz.id
+      secretName: api-tls
   rules:
     - host: api.kzt.biz.id
       http:
