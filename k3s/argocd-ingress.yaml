@@ -13,7 +13,7 @@ spec:
         - argocd.kzt.biz.id
       secretName: argocd-tls 
   rules:
-    - host:
+    - host: argocd.kzt.biz.id
       http:
         paths: 
           - path: /
