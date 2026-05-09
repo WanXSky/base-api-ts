@@ -17,7 +17,7 @@ spec:
         - name: ghcr-secret
       containers:
         - name: api
-          image: ghcr.io/wanxsky/base-api:728c657
+          image: ghcr.io/wanxsky/base-api:f067d8b
           ports:
             - containerPort: 3000
           env:
