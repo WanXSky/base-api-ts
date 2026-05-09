@@ -24,3 +24,10 @@ spec:
                       value: devpass
                     - name: POSTGRES_DB
                       value: myapi
+                  volumeMounts:
+                    - mountPath: /var/lib/postgresql/data 
+                      name: postgres-storage
+            volumes:
+                - name: postgres-storage
+                  persistentVolumeClaim:
+                    claimName: db-pvc
