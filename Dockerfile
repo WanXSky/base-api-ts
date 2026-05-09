@@ -12,7 +12,6 @@ ENV NODE_ENV=production
 COPY package*.json ./
 RUN npm install --omit=dev
 COPY prisma ./prisma
-RUN npx prisma generate
 
 COPY --from=builder /app/dist ./dist
 USER node
