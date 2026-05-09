@@ -13,6 +13,7 @@ COPY package*.json ./
 RUN npm install --omit=dev
 COPY prisma ./prisma
 RUN npx prisma generate
+RUN npx prisma db push
 
 COPY --from=builder /app/dist ./dist
 USER node
