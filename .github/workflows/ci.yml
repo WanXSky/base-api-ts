@@ -36,15 +36,3 @@ jobs:
         tags: |
             ${{ env.IMAGE_NAME }}:${{ env.SHORT_SHA }}
             ${{ env.IMAGE_NAME }}:latest
-
-    - name: Update deployment image and push
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_TOKEN }}
-      run: |
-        sed -i "s|image: ghcr.io/wanxsky/base-api:[a-zA-Z0-9]*|image: ${{ env.IMAGE_NAME }}:${{ env.SHORT_SHA }}|g" k3s/api-deployment.yaml
-        
-        git config user.name "github-actions[bot]"
-        git config user.email "github-actions[bot]@users.noreply.github.com"
-        git add k3s/api-deployment.yaml
-        git diff --staged --quiet || git commit -m "chore: update api image to ${{ env.SHORT_SHA }}"
-        git push https://x-access-token:${GITHUB_TOKEN}@github.com/WanXSky/base-api-ts.git main
