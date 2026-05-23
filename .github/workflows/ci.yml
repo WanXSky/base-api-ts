@@ -39,7 +39,7 @@ jobs:
 
     - name: Update deployment image and push
       env:
-        GITHUB_TOKEN: ${{ secrets.GHCR_PAT }}
+        GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_TOKEN }}
       run: |
         sed -i "s|image: ghcr.io/wanxsky/base-api:[a-zA-Z0-9]*|image: ${{ env.IMAGE_NAME }}:${{ env.SHORT_SHA }}|g" k3s/api-deployment.yaml
         
