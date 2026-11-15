@@ -1,5 +1,7 @@
 import { Router } from 'express';
 import { register, login } from '../controllers/authController';
+import { validate } from '../middleware/validate';
+import { registerSchema, loginSchema } from '../schemas/userSchema';
 
 const router = Router();
 
@@ -37,7 +39,7 @@ const router = Router();
  *       400:
  *         description: Bad Request
  */
-router.post('/register', register);
+router.post('/register', validate(registerSchema), register);
 
 /**
  * @swagger
@@ -69,6 +71,6 @@ router.post('/register', register);
  *       401:
  *         description: Invalid credentials
  */
-router.post('/login', login);
+router.post('/login', validate(loginSchema), login);
 
 export default router;
