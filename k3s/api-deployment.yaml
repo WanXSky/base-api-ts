@@ -22,6 +22,12 @@ spec:
             - containerPort: 3000
           env:
             - name: DATABASE_URL
-              value: postgres://devuser:devpass@db:5432/myapi
-            - name: JWT_SECRETKEY
-              value: supersecret
+              valueFrom:
+                secretKeyRef:
+                  name: app-secret
+                  key: DATABASE_URL
+            - name: JWT_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: app-secret
+                  key: JWT_SECRET_KEY
