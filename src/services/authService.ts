@@ -18,7 +18,7 @@ export class AuthService {
     
     const token = generateToken(user.id);
     
-    return { user, token };
+    return { user: { id: user.id, username: user.username, name: user.name }, token };
   }
   
   static async login(username: string, password: string) {
