@@ -13,7 +13,7 @@ export class AuthService {
     const hashedPassword = await bcrypt.hash(password, 12);
     
     const user = await prisma.user.create({
-      data: { username, password: hashedPassword, name }
+      data: { username, name }
     });
     
     const token = generateToken(user.id);
@@ -24,7 +24,7 @@ export class AuthService {
   static async login(username: string, password: string) {
     const user = await prisma.user.findUnique({ where: { username } });
     
-    if(!user) throw new Error('Username tidak ditemukan. ');
+    if(!user) throw new Error('Username atau Password salah.');
     
     const valid = await bcrypt.compare(password, user.password);
     if(!valid) throw new Error('Username atau Password salah.');
