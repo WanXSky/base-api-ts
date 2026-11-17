@@ -2,6 +2,15 @@ import { Router } from 'express';
 import { register, login } from '../controllers/authController';
 import { validate } from '../middleware/validate';
 import { registerSchema, loginSchema } from '../schemas/userSchema';
+import { rateLimit } from 'express-rate-limit';
+
+const authLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  limit: 5,
+  message: 'Terlalu banyak percobaan, coba lagi nanti.',
+  standardHeaders: 'draft-8',
+  legacyHeaders: false
+});
 
 const router = Router();
 
@@ -39,7 +48,7 @@ const router = Router();
  *       400:
  *         description: Bad Request
  */
-router.post('/register', validate(registerSchema), register);
+router.post('/register', authLimiter, validate(registerSchema), register);
 
 /**
  * @swagger
@@ -71,6 +80,6 @@ router.post('/register', validate(registerSchema), register);
  *       401:
  *         description: Invalid credentials
  */
-router.post('/login', validate(loginSchema), login);
+router.post('/login', authLimiter, validate(loginSchema), login);
 
 export default router;
