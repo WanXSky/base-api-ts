@@ -6,7 +6,7 @@ import { rateLimit } from 'express-rate-limit';
 
 const authLimiter = rateLimit({
   windowMs: 60 * 1000,
-  limit: 5,
+  limit: 4,
   message: 'Terlalu banyak percobaan, coba lagi nanti.',
   standardHeaders: 'draft-8',
   legacyHeaders: false
