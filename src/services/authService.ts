@@ -13,7 +13,7 @@ export class AuthService {
     const hashedPassword = await bcrypt.hash(password, 12);
     
     const user = await prisma.user.create({
-      data: { username, name }
+      data: { username, name, hashedPassword }
     });
     
     const token = generateToken(user.id);
