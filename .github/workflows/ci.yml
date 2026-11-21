@@ -3,10 +3,10 @@ name: Build and Push to GHCR.io
 on:
   push:
     branches:
-      - main
+      - sqlite-db
 
 env:
-  IMAGE_NAME: ghcr.io/wanxsky/base-api
+  IMAGE_NAME: ghcr.io/wanxsky/base-api-sqlite
   
 jobs:
   build-and-push:
