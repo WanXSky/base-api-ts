@@ -1,4 +1,4 @@
-FROM node:24-alpine AS builder
+FROM node:24-slim AS builder
 WORKDIR /app
 
 COPY package*.json ./
@@ -9,7 +9,7 @@ COPY . .
 RUN npx prisma generate
 RUN npm run build
 
-FROM node:24-alpine AS runner
+FROM node:24-slim AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
